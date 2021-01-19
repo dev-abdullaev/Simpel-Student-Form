@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+
+        {% comment %} Adding New Students {% endcomment %}
+            <div class="col-sm-4">
+                <div class="alert alert-primary" role="alert">
+                    <h4 class="text-center">Add New Student</h4>
+                </div>
+                <form action="" method='POST'>
+                {% csrf_token %}
+                    <div class="form-group">
+                        {{form}}
+                    </div>
+                    <br>
+                    <button type='submit' class="btn btn-info">Add</button>
+               </form> 
+            </div>
+
+            {% comment %} Showing Students' Information {% endcomment %}
+            <div class="col-sm-8">
+                <div class="alert alert-primary" role="alert">
+                    <h4 class="text-center">Student Information</h4>
+                </div>
+                
+                <table class="table">
+                
+                    <thead>
+                      
+                        <tr>
+                      
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>ID</th>
+                            <th>Course</th>
+                            <th class='text-center'>Action</th>
+                        </tr>
+                    </thead>
+                     {% for student in students %}
+                    <tbody>
+                        <tr>
+                            <td>{{student.name}}</td>
+                            <td>{{student.email}}</td>
+                            <td>{{student.stduent_ID}}</td>
+                            <td>{{student.course}}</td>
+                            <td>
+                                <a href="{% url 'update' student.id %}" class='btn btn-info'>Edit</a>
+                                <a href="{% url 'delete' student.id %}" class='btn btn-danger'>Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
